@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 
 
 class SomeTests(TestCase):
-    fixtures = ['initial_data.json'] 
+    fixtures = ['initial_data.json']  
 
     def setUp(self):
         self.client = Client()
@@ -45,9 +45,17 @@ class SomeTests(TestCase):
         self.assertEqual(MyInfo.objects.count(),1)
         self.assertEqual(fixtures_instant_name,'Oleg')
 
-    def test_fixture(self):
+    def test_fixture_superuser(self):
         user_instanc = User.objects.get(id = 1)
         self.assertTrue(user_instanc.is_superuser)
         self.assertEqual(user_instanc.username,'admin')    
+    
+    def test_view_use_model(self):
+        response = self.client.get('/')
+        model_instance = MyInfo.objects.get(pk =1)
+        self.assertIn(model_instance.name,response.content)
+        self.assertIn(model_instance.surname,response.content)
+        
 
-
+        
+ 
