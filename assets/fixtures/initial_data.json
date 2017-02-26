@@ -1,0 +1,13 @@
+[
+  {
+    "model":"hello.myinfo",
+    "pk":1,
+    "fields":{
+        "name" : "Oleg",
+        "surname" : "Senyshyn",
+        "email" : "sen9a1990@gmail.com",
+        "bio" : "I am from Lviv, and i get ap at 7 oclock",
+        "birthday" : "1990-08-02"
+    }
+  }
+]

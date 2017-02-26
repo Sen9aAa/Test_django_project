@@ -9,6 +9,8 @@ from datetime import date
 
 
 class SomeTests(TestCase):
+    fixtures = ['initial_data.json'] 
+
     def setUp(self):
         self.client = Client()
     
@@ -36,5 +38,10 @@ class SomeTests(TestCase):
                                         )
         self.assertTrue(isinstance(instance, MyInfo))
         self.assertEqual(instance.name,'Test')
+
+    def test_fixture(self):
+        fixtures_instant_name = MyInfo.objects.get(pk = 1).name
+        self.assertEqual(MyInfo.objects.count(),1)
+        self.assertEqual(fixtures_instant_name,'Oleg')
 
 
