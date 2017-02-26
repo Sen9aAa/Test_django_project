@@ -1,1 +1,14 @@
+.my_info{
+	vertical-align: middle;
+	display: table-cell;
+	width: 700px;
+}
+
+.my_div{
+	display: table;
+	font-size: 20px;
+	border-bottom: 2px solid black;
+	line-height: 25px;
+	border-spacing:20px;
+}
  
