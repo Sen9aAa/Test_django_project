@@ -5,6 +5,7 @@ from django.http import HttpRequest
 from .views import HomeView
 from .models import MyInfo
 from datetime import date
+from django.contrib.auth.models import User
 # Create your tests here.
 
 
@@ -43,5 +44,10 @@ class SomeTests(TestCase):
         fixtures_instant_name = MyInfo.objects.get(pk = 1).name
         self.assertEqual(MyInfo.objects.count(),1)
         self.assertEqual(fixtures_instant_name,'Oleg')
+
+    def test_fixture(self):
+        user_instanc = User.objects.get(id = 1)
+        self.assertTrue(user_instanc.is_superuser)
+        self.assertEqual(user_instanc.username,'admin')    
 
 

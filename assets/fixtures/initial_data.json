@@ -9,5 +9,15 @@
         "bio" : "I am from Lviv, and i get ap at 7 oclock",
         "birthday" : "1990-08-02"
     }
+  },
+  { "model": "auth.user",
+        "pk": 1,
+        "fields": {
+            "username": "admin",
+            "password": "pbkdf2_sha256$12000$fxtRo2P8aIff$wk7z1kXtefd3ioaASVzAveV2XhCzLtGEzIY2LNF4E3M=",
+            "is_superuser": true,
+            "is_staff": true,
+            "is_active": true
+        }
   }
 ]
