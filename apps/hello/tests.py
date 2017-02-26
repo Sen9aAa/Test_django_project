@@ -10,5 +10,5 @@ class SomeTests(TestCase):
         assert(2 + 3 == 5)
     def test_hello_url(self):
         found = resolve('/')
-        self.assertEqual(found.func,HomeView)
+        self.assertEqual(found.func.__name__,'HomeView')
 
