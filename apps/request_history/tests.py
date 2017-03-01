@@ -49,3 +49,9 @@ class Request_test(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code,200)
         self.assertTemplateUsed(response, 'request_history.html')
+
+    def test_view_use_model(self):
+        response = self.client.get('/request_history')
+        model_instance = RequestHistory.objects.get(pk =1)
+        self.assertIn(model_instance.request_method,response.content)
+        self.assertIn(model_instance.request_link ,response.content)
