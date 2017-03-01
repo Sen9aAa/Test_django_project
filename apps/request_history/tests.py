@@ -26,3 +26,8 @@ class Request_test(TestCase):
             response = self.client.get(url)
         response = self.client.post(url)
         self.assertEqual(RequestHistory.objects.all().count(),3)
+    def test_request_to_store_only_10_request_to_database(self):
+        for c in range(15):
+            url = reverse("home")
+            response = self.client.get(url)
+        self.assertEqual(RequestHistory.objects.all().count(),10)
