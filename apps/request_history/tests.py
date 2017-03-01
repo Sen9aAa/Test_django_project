@@ -24,4 +24,5 @@ class Request_test(TestCase):
         for c in range(2):
             url = reverse("home")
             response = self.client.get(url)
-        self.assertEqual(RequestHistory.objects.all().count(),2)
+        response = self.client.post(url)
+        self.assertEqual(RequestHistory.objects.all().count(),3)
