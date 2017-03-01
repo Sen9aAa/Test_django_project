@@ -1,5 +1,5 @@
 from django.test import TestCase,Client
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import resolve,reverse
 from mock import Mock
 from .my_middleware import RequestHistoryMiddleware
 from .models import RequestHistory
@@ -39,3 +39,6 @@ class Request_test(TestCase):
             url = reverse("home")
             response = self.client.get(url)
         self.assertEqual(RequestHistory.objects.all().count(),10)
+    def test_request_url(self):
+        found = resolve('/request_history')
+        self.assertEqual(found.func.__name__,'RequestHistoryView')
