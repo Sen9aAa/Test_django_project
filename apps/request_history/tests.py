@@ -39,6 +39,13 @@ class Request_test(TestCase):
             url = reverse("home")
             response = self.client.get(url)
         self.assertEqual(RequestHistory.objects.all().count(),10)
+    
     def test_request_url(self):
         found = resolve('/request_history')
         self.assertEqual(found.func.__name__,'RequestHistoryView')
+
+    def test_view_to_return_content(self):
+        url = reverse("request_history")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code,200)
+        self.assertTemplateUsed(response, 'request_history.html')

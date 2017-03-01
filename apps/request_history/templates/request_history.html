@@ -1,0 +1,28 @@
+{% extends 'index.html' %}
+{% block title %}
+{% endblock %}
+
+{% block content %}
+<div class="bs-example" data-example-id="hoverable-table">
+  <table class="table table-hover table_vidstyp"> 
+    <thead> 
+      <tr> 
+        <th>N</th> 
+        <th>Request method</th> 
+        <th>Request linc</th> 
+        <th>Request Date</th> 
+      </tr> 
+    </thead> 
+    <tbody>
+    {% for req in request_history_objects %} 
+      <tr> 
+        <th scope="row">{{ forloop.counter }}</th> 
+        <td>{{ req.request_method }}</td> 
+        <td>{{ req.request_lenght }}</td>
+        <td>{{ req.request_time }}</td> 
+      </tr>
+    {% endfor %} 
+    </tbody> 
+  </table> 
+</div>
+{% endblock %}

@@ -3,4 +3,4 @@ from django.views.generic.base import TemplateView
 
 # Create your views here.
 class RequestHistoryView(TemplateView):
-	pass
+	template_name = 'request_history.html'
