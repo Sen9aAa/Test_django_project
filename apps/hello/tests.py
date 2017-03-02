@@ -5,6 +5,7 @@ from .views import HomeView
 from .models import MyInfo
 from datetime import date
 from django.contrib.auth.models import User
+from apps.request_history.models import RequestHistory
 # Create your tests here.
 
 
@@ -54,6 +55,7 @@ class SomeTests(TestCase):
         model_instance = MyInfo.objects.get(pk =1)
         self.assertIn(model_instance.name,response.content)
         self.assertIn(model_instance.surname,response.content)
+
         
 
         
