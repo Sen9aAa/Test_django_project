@@ -51,7 +51,29 @@ class Request_test(TestCase):
         self.assertTemplateUsed(response, 'request_history.html')
 
     def test_view_use_model(self):
-        response = self.client.get('/request_history')
+        url = reverse("request_history")
+        response = self.client.get(url)
         model_instance = RequestHistory.objects.get(pk =1)
         self.assertIn(model_instance.request_method,response.content)
         self.assertIn(model_instance.request_link ,response.content)
+    
+    def test_status_field_in_model_request_history(self):
+        for c in range(15):
+            url = reverse("home")
+            response = self.client.get(url)
+        instance = RequestHistory.objects.all()
+        for c in instance:
+            self.assertEqual(c.request_status,0)
+
+    def test_as_read(self):
+        for c in range(15):
+            url = reverse("home")
+            response = self.client.get(url)
+        url = reverse("request_history")
+        response = self.client.get(url)
+        instance = RequestHistory.objects.all()
+        """  Kolu request_status byde dorivnuvatu 1 ce byde 9k pro4utani requestu  """
+        for c in instance:
+            self.assertEqual(c.request_status,1)
+
+        

@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block title %}42 cofee cups{% endblock title %}
+{% block links %}
+<a class="navbar-brand"  href="{% url 'request_history' %}">New requests</a>
+{% endblock %}
 
 
 {% block content %}
