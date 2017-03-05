@@ -6,6 +6,7 @@ from .models import MyInfo
 from datetime import date
 from django.contrib.auth.models import User
 from apps.request_history.models import RequestHistory
+from .forms import *
 # Create your tests here.
 
 
@@ -56,6 +57,26 @@ class SomeTests(TestCase):
         self.assertIn(model_instance.name,response.content)
         self.assertIn(model_instance.surname,response.content)
 
+class FormTest(TestCase):
+    
+    def setUp(self):
+        self.data = {'name' : 'Test','surname' : 'Testovuch','email' : 'test1990@gmail.com','bio' : 'live in Lviv','birthday' : date(1990,02,21)}
+        self.my_info_object = MyInfo.objects.create(name = 'Test',
+                                        surname = 'Testovuch',
+                                        email = 'test1990@gmail.com',
+                                        bio = 'live in Lviv',
+                                        birthday = date(1990,02,21)
+                                        )
+    
+    def test_form_add_data_is_valid(self):
+        form = My_add_data_form(data = self.data)
+        self.assertTrue(form.is_valid())
+        instance = form.save()
+        self.assertEqual(instance.name,'Test')
+    def test_form_is_not_valid(self):
+        form = My_add_data_form(data = {})
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors['name'],['This field is required.'])
         
 
         
