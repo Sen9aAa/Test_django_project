@@ -1,0 +1,16 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="table_vidstyp">
+  <h1>New Info</h1>
+  <form id = 'my_add_info' class="form-group" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{form.as_p}}
+  <div class="col-sm-offset-2 col-sm-10">
+    <input type="submit" value="Save" class="btn btn-success">
+  </div>
+</form>
+</div>
+{% endblock %}

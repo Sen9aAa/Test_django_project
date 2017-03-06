@@ -60,6 +60,7 @@ class SomeTests(TestCase):
 class FormTest(TestCase):
     
     def setUp(self):
+        self.client = Client()
         self.data = {'name' : 'Test','surname' : 'Testovuch','email' : 'test1990@gmail.com','bio' : 'live in Lviv','birthday' : date(1990,02,21)}
         self.my_info_object = MyInfo.objects.create(name = 'Test',
                                         surname = 'Testovuch',
@@ -73,10 +74,16 @@ class FormTest(TestCase):
         self.assertTrue(form.is_valid())
         instance = form.save()
         self.assertEqual(instance.name,'Test')
+    
     def test_form_is_not_valid(self):
         form = My_add_data_form(data = {})
         self.assertFalse(form.is_valid())
-        self.assertEqual(form.errors['name'],['This field is required.'])
+        self.assertEqual(form.errors['name'] and form.errors['surname'] and form.errors['email'] and form.errors['birthday'],['This field is required.'])
+
+    def test_form_using_teamplate(self):
+        response = self.client.get('/add_data')
+        self.assertTemplateUsed(response, 'add_data.html')
+        self.assertIsInstance(response.context['form'], My_add_data_form)
         
 
         

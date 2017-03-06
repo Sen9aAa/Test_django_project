@@ -14,4 +14,5 @@ urlpatterns = patterns(
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$',HomeView.as_view(),name='home'),
     url(r'^request_history$',RequestHistoryView.as_view(),name='request_history'),
+    url(r'^add_data$','apps.hello.views.my_add_data_form',name='add_data'),
 )
