@@ -15,6 +15,7 @@ class SomeTests(TestCase):
 
     def setUp(self):
         self.client = Client()
+        self.data = {'name' : 'Test','surname' : 'Testovuch','email' : 'test1990@gmail.com','bio' : 'live in Lviv','birthday' : date(1990,02,21)}
     
     def test_math(self):
         "put docstrings in your tests"
@@ -56,19 +57,7 @@ class SomeTests(TestCase):
         model_instance = MyInfo.objects.get(pk =1)
         self.assertIn(model_instance.name,response.content)
         self.assertIn(model_instance.surname,response.content)
-
-class FormTest(TestCase):
-    
-    def setUp(self):
-        self.client = Client()
-        self.data = {'name' : 'Test','surname' : 'Testovuch','email' : 'test1990@gmail.com','bio' : 'live in Lviv','birthday' : date(1990,02,21)}
-        self.my_info_object = MyInfo.objects.create(name = 'Test',
-                                        surname = 'Testovuch',
-                                        email = 'test1990@gmail.com',
-                                        bio = 'live in Lviv',
-                                        birthday = date(1990,02,21)
-                                        )
-    
+        
     def test_form_add_data_is_valid(self):
         form = My_add_data_form(data = self.data)
         self.assertTrue(form.is_valid())
@@ -84,6 +73,12 @@ class FormTest(TestCase):
         response = self.client.get('/add_data')
         self.assertTemplateUsed(response, 'add_data.html')
         self.assertIsInstance(response.context['form'], My_add_data_form)
+
+    def test_form_save_data_to_bd(self):
+        response = self.client.post('/add_data',self.data)
+        instance = MyInfo.objects.get(id = 2)
+        self.assertEqual(MyInfo.objects.all().count(),2)
+        self.assertEqual(instance.name,'Test')
         
 
         
