@@ -79,7 +79,7 @@ class SomeTests(TestCase):
         instance = MyInfo.objects.get(id = 2)
         self.assertEqual(MyInfo.objects.all().count(),2)
         self.assertEqual(instance.name,'Test')
-        
+
 
         
  
