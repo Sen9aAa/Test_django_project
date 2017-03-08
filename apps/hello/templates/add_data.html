@@ -7,10 +7,120 @@
   <h1>New Info</h1>
   <form id = 'my_add_info' class="form-group" method="post" enctype="multipart/form-data">
   {% csrf_token %}
-  {{form.as_p}}
-  <div class="col-sm-offset-2 col-sm-10">
+  <p>
+    <label  for="{{ form.name.id_for_label }}">Name:</label>
+    {{ form.name }}
+  </p>
+  <p>
+    <label  for="{{ form.surname.id_for_label }}">Surname:</label>
+    {{ form.surname }}
+  </p>
+  <p>
+    <label  for="{{ form.email.id_for_label }}">Email:</label>
+    {{ form.email }}
+  </p>
+  <p>
+    <label  for="{{ form.bio.id_for_label }}">About your self:</label>
+    {{ form.bio }}
+  </p>
+  <p>
+   <label  for="{{ form.birthday.id_for_label }}">Date of birthday:</label>
+    {{ form.birthday }}
+  </p>
+    <div class="col-sm-offset-2 col-sm-10">
     <input type="submit" value="Save" class="btn btn-success">
   </div>
 </form>
 </div>
+{% endblock %}
+
+{% block add_data_script %}
+<script type="text/javascript">
+
+  $(document).ready(function(){ 
+    var options = {
+      url : "/add_data",
+      dataType:'json',
+      beforeSubmit: showRequest,
+      success : showResponse,
+    };
+    $('#my_add_info').submit(function(){
+      $(this).ajaxSubmit(options);
+      return false;
+    });
+  });
+
+
+  function showRequest(formData,jqForm,options){
+  $('body').addClass("loading"); 
+  return true
+  }
+  function showResponse(json){
+  $('body').removeClass("loading");
+  if (json.name){
+    $('#id_name').parent().attr('id','name_error');
+      for(var i = 0;i<json.name.length;i++){
+        if ($('ul#name_error_'+[i]).text()){  
+          $('ul#name_error_'+[i]).replaceWith("<ul class = 'error'" +"id=name_error_"+[i]+"><li>"+json.name[i]+"</li></ul>")
+        }else{
+          $('#id_name').parent().prepend("<ul class = 'error'" +"id=name_error_"+[i]+"><li>"+json.name[i]+"</li></ul>");
+          };
+        };
+  }else{
+    $('p#name_error ul').replaceWith('');
+  };
+  if(json.surname){
+    $('#id_surname').parent().attr('id','surname_error');
+      for(var i = 0;i<json.surname.length;i++){
+        if ($('ul#surname_error_'+[i]).text()){  
+          $('ul#surname_error_'+[i]).replaceWith("<ul class = 'error'" +"id=surname_error_"+[i]+"><li>"+json.surname[i]+"</li></ul>")
+        }else{
+          $('#id_surname').parent().prepend("<ul class = 'error'" +"id=surname_error_"+[i]+"><li>"+json.surname[i]+"</li></ul>");
+        };
+      };
+  }else{
+    $('p#surname_error ul').replaceWith('');
+  };
+  if(json.email){
+    $('#id_email').parent().attr('id','email_error');
+      for(var i = 0;i<json.email.length;i++){
+        if ($('ul#email_error_'+[i]).text()){  
+          $('ul#email_error_'+[i]).replaceWith("<ul class = 'error'" +"id=email_error_"+[i]+"><li>"+json.email[i]+"</li></ul>")
+        }else{
+          $('#id_email').parent().prepend("<ul class = 'error'" +"id=email_error_"+[i]+"><li>"+json.email[i]+"</li></ul>");
+        };
+      };
+  }else{
+    $('p#email_error ul').replaceWith('');
+  };
+  if(json.bio){
+    $('#id_bio').parent().attr('id','bio_error');
+      for(var i = 0;i<json.bio.length;i++){
+        if ($('ul#bio_error_'+[i]).text()){  
+          $('ul#bio_error_'+[i]).replaceWith("<ul class = 'error'" +"id=bio_error_"+[i]+"><li>"+json.bio[i]+"</li></ul>")
+        }else{
+          $('#id_bio').parent().prepend("<ul class = 'error'" +"id=bio_error_"+[i]+"><li>"+json.bio[i]+"</li></ul>");
+        };
+      };
+  }else{
+    $('p#bio_error ul').replaceWith('');
+  };
+  if(json.birthday){
+    $('#id_birthday').parent().attr('id','birthday_error');
+      for(var i = 0;i<json.birthday.length;i++){
+        if ($('ul#birthday_error_'+[i]).text()){  
+          $('ul#birthday_error_'+[i]).replaceWith("<ul class = 'error'" +"id=birthday_error_"+[i]+"><li>"+json.birthday[i]+"</li></ul>")
+        }else{
+          $('#id_birthday').parent().prepend("<ul class = 'error'" +"id=birthday_error_"+[i]+"><li>"+json.birthday[i]+"</li></ul>");
+        };
+      };
+  }else{
+    $('p#birthday_error ul').replaceWith('');
+  };
+  if (json.ok_message){
+    if(!alert(json.ok_message)){document.location = 'http://127.0.0.1:8000/'};
+  };
+  };
+</script>
+<script src="{% static 'bootstrap/js/jquery.form.js' %}"></script>
 {% endblock %}
