@@ -46,3 +46,65 @@ body.loading .modal {
 .error{
     color: red;
 }
+
+#my_add_info  p.input-group.date{
+    position: relative;
+}
+
+
+
+#my_add_info  p.input-group.date input, 
+#my_add_info  p.input-group.date span.input-group-addon{
+    display: block;
+    float: left;
+    width: 180px;
+    height: 30px;
+}
+#my_add_info  p.input-group.date span.input-group-addon{
+    width: 5%;
+}
+
+#my_add_info  p.input-group.date label{
+    display: block;
+    float: left;
+    vertical-align: middle;
+    line-height: 30px;
+    width: 200px;
+    min-width: 150px;
+    padding-right: 20px;
+}
+.input-group.date{
+    width: 700px
+}
+
+html {
+    height:1000px;
+}
+
+#my_add_info p label,
+#my_registration_form p label,
+.form_class {
+    display: block;
+    float: left;
+    vertical-align: middle;
+    line-height: 30px;
+    width: 200px;
+    min-width: 150px;
+    padding-right: 20px;
+}
+#my_add_info p input, 
+#my_add_info p select,
+#my_add_info p textarea{
+    float: left;
+}
+#my_add_info p textarea{
+    max-height: 120px;
+    resize: none;
+}
+#my_add_info p:after{
+    visibility: hidden;
+    display: block;
+    content: "";
+    clear: both;
+    height: 0;
+}

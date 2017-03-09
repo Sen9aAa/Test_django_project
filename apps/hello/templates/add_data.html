@@ -23,10 +23,7 @@
     <label  for="{{ form.bio.id_for_label }}">About your self:</label>
     {{ form.bio }}
   </p>
-  <p>
-   <label  for="{{ form.birthday.id_for_label }}">Date of birthday:</label>
     {{ form.birthday }}
-  </p>
     <div class="col-sm-offset-2 col-sm-10">
     <input type="submit" value="Save" class="btn btn-success">
   </div>
@@ -35,6 +32,9 @@
 {% endblock %}
 
 {% block add_data_script %}
+  {% if form %}
+  {{ form.media }}
+  {% endif %}
 <script type="text/javascript">
 
   $(document).ready(function(){ 
