@@ -7,11 +7,17 @@ from datetime import date
 from django.contrib.auth.models import User
 from apps.request_history.models import RequestHistory
 from .forms import *
+import tempfile
+from django.core.files.images import ImageFile
 # Create your tests here.
 
 
 class SomeTests(TestCase):
-    fixtures = ['initial_data.json']  
+    fixtures = ['initial_data.json']
+
+    def get_test_image_file(self):
+        file = tempfile.NamedTemporaryFile(suffix='.png')
+        return ImageFile(file, name=file.name)  
 
     def setUp(self):
         self.client = Client()
@@ -79,7 +85,18 @@ class SomeTests(TestCase):
         instance = MyInfo.objects.get(id = 2)
         self.assertEqual(MyInfo.objects.all().count(),2)
         self.assertEqual(instance.name,'Test')
-
+    
+    def test_the_image_field_in_MyInfo(self):
+        instance = MyInfo.objects.create(name = 'Test',
+                                        surname = 'Testovuch',
+                                        email = 'test1990@gmail.com',
+                                        bio = 'live in Lviv',
+                                        birthday = date(1990,02,21),
+                                        image = self.get_test_image_file(),
+                                        )
+        file = instance.image.path
+        self.assertTrue(isinstance(instance, MyInfo))
+        self.failUnless(open(file), 'file not found')
 
         
  

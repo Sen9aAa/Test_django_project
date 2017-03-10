@@ -6,6 +6,7 @@ class MyInfo(models.Model):
     email = models.EmailField(max_length = 200)
     bio = models.TextField(blank = True)
     birthday = models.DateField()
+    image = models.ImageField(upload_to = 'photos',blank = True,null=True)
 
     def __unicode__(self):
         return '%s %s'%(self.name,self.surname)

@@ -81,9 +81,7 @@ html {
     height:1000px;
 }
 
-#my_add_info p label,
-#my_registration_form p label,
-.form_class {
+#my_add_info p label{
     display: block;
     float: left;
     vertical-align: middle;
