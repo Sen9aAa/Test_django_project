@@ -16,6 +16,7 @@
       <p><strong>Contact</strong> : {{ c.email }}</p>
       <p><strong>About me</strong> :{{ c.bio }}</p>
       <p><strong>Date of birth</strong> : {{ c.birthday }}</p>
+      <div><img src="{{ c.image.url }}"/></div>
     </div>
     {% endfor %}
 {% endblock %}

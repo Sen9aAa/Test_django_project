@@ -98,5 +98,13 @@ class SomeTests(TestCase):
         self.assertTrue(isinstance(instance, MyInfo))
         self.failUnless(open(file), 'file not found')
 
+    def test_form_add_data_is_valid_whith_image_field(self):
+        self.data['image'] = self.get_test_image_file()
+        form = My_add_data_form(data = self.data)
+        self.assertTrue(form.is_valid())
+        instance = form.save()
+        self.assertEqual(instance.name,'Test')
+
+
         
  
